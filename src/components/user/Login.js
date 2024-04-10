@@ -12,6 +12,7 @@ import React, { useRef, useState } from "react";
 import { useValue } from "../../context/ContextProvider";
 import { Close, Send } from "@mui/icons-material";
 import PasswordField from "./PasswordField";
+import GoogleOneTapLogin from "./GoogleOneTapLogin";
 
 const Login = () => {
   const {
@@ -29,12 +30,27 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("first");
+    console.log("testing loader");
+    dispatch({ type: "START_LOADING" });
+    setTimeout(() => {
+      dispatch({ type: "STOP_LOADING" });
+    }, 6000);
+
+    console.log("testing alerts");
+    const Password = passwordRef.current.value;
+    const ConfirmPasswordRef = confirmPasswordRef.current.value;
+    if (Password !== ConfirmPasswordRef) {
+      dispatch({
+        type: "UPDATE_ALERT",
+        payload: { open: true, servity: "error", msg: "Mismatch Password" },
+      });
+    }
   };
   return (
     <Dialog open={openLogin} onClose={handleClose}>
       <DialogTitle>
-        {title}
+        {/* {title} */}
+        {isRegister ? "Register" : "Login"}
         <IconButton
           sx={{
             position: "absolute",
@@ -86,12 +102,23 @@ const Login = () => {
             />
           )}
         </DialogContent>
-        <DialogActions>
-          <Button type="submit" variant="contaiend" endIcon={<Send />}>
+        <DialogActions sx={{ px: "19px" }}>
+          <Button type="submit" variant="contained" endIcon={<Send />}>
             Submit
           </Button>
         </DialogActions>
       </form>
+      <DialogActions sx={{ justifyContent: "left", p: "5px 24px" }}>
+        {isRegister
+          ? "Do you have an acc? Sign in now"
+          : "Don't you have an acc? create one now"}
+        <Button onClick={() => setIsRegister(!isRegister)}>
+          {isRegister ? "Login" : "Register"}
+        </Button>
+      </DialogActions>
+      <DialogActions sx={{ justifyContent: "center", py: "24px" }}>
+        <GoogleOneTapLogin />
+      </DialogActions>
     </Dialog>
   );
 };
