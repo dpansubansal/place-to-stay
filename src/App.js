@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import Login from "./components/user/Login";
 import Notifications from "./components/Notifications";

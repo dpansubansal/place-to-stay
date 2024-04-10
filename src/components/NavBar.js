@@ -9,12 +9,12 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import pic from "../pic.jpg";
+// import pic from "../pic.jpg";
 import { Lock, Menu } from "@mui/icons-material";
 import { useValue } from "../context/ContextProvider";
 import UserIcons from "./user/UserIcons";
 
-const user = { name: "test", pic };
+// const user = { name: "test", pic };
 const NavBar = () => {
   const {
     state: { currentUser },
