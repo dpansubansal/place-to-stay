@@ -2,7 +2,7 @@ import { Google } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useValue } from "../../context/ContextProvider";
-// import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const GoogleOneTapLogin = () => {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -10,14 +10,22 @@ const GoogleOneTapLogin = () => {
 
   const handleCallBack = (resp) => {
     console.log("resp", resp);
-    // const token = resp.credential;
+    const token = resp.credential;
+    const decodedToken = jwtDecode(token);
+    // console.log("decodedTkn", decodedToken);
+    const { sub: id, email, name, picture: photoUrl } = decodedToken;
+    dispatch({
+      type: "UPDATE_USER",
+      payload: { id, email, name, photoUrl, token, google: true },
+    });
+    dispatch({ type: "CLOSE_LOGIN" });
   };
   const handleGoogleLogIn = () => {
     setIsDisabled(true);
     try {
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleCallBack,
+        window.google.accounts.id.initialize({
+          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+          callback: handleCallBack,
       });
       // window.google.accounts.id.prompt((notification) => {
       //   // if (notification.isNotDisplayed()) {
