@@ -4,9 +4,34 @@ import React from 'react';
 import { useValue } from '../../context/ContextProvider';
 
 const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
-  const { dispatch } = useValue();
+  const {
+    dispatch,
+    state: { currentUser },
+  } = useValue();
   const handleCloseUserMenu = () => {
     setAnchorUserMenu(null);
+  };
+
+  const testAuth = async () => {
+    const url = process.env.REACT_APP_SERVER_URL + "/room";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.message);
+      }
+    } catch (er) {
+      dispatch({
+        type: "UPDATE_ALERT",
+        payload: { open: true, servity: "error", msg: er.message },
+      });
+    }
   };
 
   return (
@@ -16,14 +41,14 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
       onClose={handleCloseUserMenu}
       onClick={handleCloseUserMenu}
     >
-      <MenuItem>
+      <MenuItem onClick={testAuth}>
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>
         Profile
       </MenuItem>
       <MenuItem
-        onClick={() => dispatch({ type: 'UPDATE_USER', payload: null })}
+        onClick={() => dispatch({ type: "UPDATE_USER", payload: null })}
       >
         <ListItemIcon>
           <Logout fontSize="small" />

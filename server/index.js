@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import roomRouter from "./routes/roomRouter.js";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -9,12 +10,13 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "X-Requested-With,Cotent-Type,Authorization"
+    "X-Requested-With,Content-Type,Authorization"
   );
   next();
 });
 
 app.use(express.json({ limit: "10mb" }));
+app.use("/room", roomRouter);
 app.use("/", (req, res) => {
   res.json({ message: "wlcm to our API" });
 });
