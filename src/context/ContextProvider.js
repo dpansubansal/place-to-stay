@@ -1,7 +1,8 @@
 // import React from 'react'
 
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "./reducer";
+import { type } from "@testing-library/user-event/dist/type";
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -18,6 +19,12 @@ export const useValue = () => {
 
 const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser) {
+      dispatch({ type: "UPDATE_USER", payload: currentUser });
+    }
+  });
   return (
     <CONTEXT.Provider value={{ state, dispatch }}>{children}</CONTEXT.Provider>
   );

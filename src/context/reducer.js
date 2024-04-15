@@ -5,6 +5,7 @@ const reducer = (state, action) => {
     case "CLOSE_LOGIN":
       return { ...state, openLogin: false };
     case "UPDATE_USER":
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
       return { ...state, currentUser: action.payload };
     case "UPDATE_ALERT":
       return { ...state, alert: action.payload };
