@@ -13,6 +13,8 @@ const userSchema = mongoose.Schema({
   },
   password: { type: String, required: true },
   photoUrl: { type: String, default: "", trim: true },
+}, {
+	timestamps: true
 });
 
 export const User = mongoose.model("users", userSchema);

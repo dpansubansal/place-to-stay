@@ -22,7 +22,7 @@ app.use(express.json({ limit: "10mb" }));
 // app.use(bodyParser.urlencoded({ extended:false }));
 app.use("/user", userRouter);
 app.use("/room", roomRouter);
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "wlcm to our API" });
 });
 app.use((req, res) => {
