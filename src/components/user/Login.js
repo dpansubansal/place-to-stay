@@ -13,7 +13,7 @@ import { useValue } from "../../context/ContextProvider";
 import { Close, Send } from "@mui/icons-material";
 import PasswordField from "./PasswordField";
 import GoogleOneTapLogin from "./GoogleOneTapLogin";
-import { register } from "../../actions/user";
+import { login, register } from "../../actions/user";
 
 const Login = () => {
   const {
@@ -34,6 +34,10 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     //send login rqst if it is not register and return
+    if (!isRegister) {
+      console.log("dasdfirst")
+      return login({ email, password }, dispatch);
+    }
     const name = nameRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
     if (password !== confirmPassword) {
@@ -46,8 +50,8 @@ const Login = () => {
         },
       });
     }
-    //send register rqst 
-    register({name,email,password},dispatch)
+    //send register rqst
+    register({ name, email, password }, dispatch);
   };
   return (
     <Dialog open={openLogin} onClose={handleClose}>
