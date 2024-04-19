@@ -11,6 +11,9 @@ const UserIcons = () => {
     state: { currentUser },
   } = useValue();
 
+  console.log("cur user from user icons", currentUser);
+
+  console.log("currentUser", currentUser);
   const [anchorUserMenu, setAnchorUserMenu] = useState(null);
   return (
     <Box>
@@ -30,7 +33,7 @@ const UserIcons = () => {
             setAnchorUserMenu(e.currentTarget);
           }}
         >
-          <Avatar src={currentUser?.pic} alt={currentUser?.name}>
+          <Avatar src={currentUser?.photoUrl} alt={currentUser?.name}>
             {currentUser?.name?.charAt(0).toUpperCase()}
           </Avatar>
         </IconButton>

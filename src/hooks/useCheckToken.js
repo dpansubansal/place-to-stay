@@ -13,7 +13,7 @@ const useCheckToken = () => {
         dispatch({ type: "UPDATE_USER", payload: null });
       }
     }
-  });
+  },[]);
 
   return <div>useCheckToken</div>;
 };

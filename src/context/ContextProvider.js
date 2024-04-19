@@ -2,13 +2,13 @@
 
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "./reducer";
-import { type } from "@testing-library/user-event/dist/type";
 
 const INITIAL_STATE = {
   currentUser: null,
   openLogin: false,
   alert: { open: false, servity: "info", msg: "" },
   loading: false,
+  profile: { open: false, file: null, photoURL: "" },
 };
 
 const CONTEXT = createContext(INITIAL_STATE);
@@ -24,7 +24,7 @@ const ContextProvider = ({ children }) => {
     if (currentUser) {
       dispatch({ type: "UPDATE_USER", payload: currentUser });
     }
-  });
+  },[]);
   return (
     <CONTEXT.Provider value={{ state, dispatch }}>{children}</CONTEXT.Provider>
   );
