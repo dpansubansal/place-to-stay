@@ -56,7 +56,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
               payload: {
                 open: true,
                 file: null,
-                photoURL: currentUser?.photoURL,
+                photoUrl: currentUser?.photoUrl,
               },
             })
           }

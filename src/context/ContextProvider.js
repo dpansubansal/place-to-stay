@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   openLogin: false,
   alert: { open: false, servity: "info", msg: "" },
   loading: false,
-  profile: { open: false, file: null, photoURL: "" },
+  profile: { open: false, file: null, photoUrl: "" },
 };
 
 const CONTEXT = createContext(INITIAL_STATE);

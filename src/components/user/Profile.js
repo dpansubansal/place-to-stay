@@ -35,13 +35,14 @@ const Profile = () => {
     console.log("handling change");
     const file = e.target.files[0];
     if (file) {
-      const photoURL = URL.createObjectURL(file);
-      console.log("purl", photoURL);
+      const photoUrl = URL.createObjectURL(file);
+      console.log("purl", photoUrl);
       dispatch({
         type: "UPDATE_PROFILE",
-        payload: { ...profile, file, photoURL },
+        payload: { ...profile, file, photoUrl },
       });
     } else {
+      console.log("executed else block")
     }
   };
   const nameRef = useRef();
