@@ -49,23 +49,26 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
         onClick={handleCloseUserMenu}
       >
         {/* <MenuItem onClick={testAuth}> */}
-        <MenuItem
-          onClick={() =>
-            dispatch({
-              type: "UPDATE_PROFILE",
-              payload: {
-                open: true,
-                file: null,
-                photoUrl: currentUser?.photoUrl,
-              },
-            })
-          }
-        >
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Profile
-        </MenuItem>
+        {!currentUser.google && (
+          <MenuItem
+            onClick={() =>
+              dispatch({
+                type: "UPDATE_PROFILE",
+                payload: {
+                  open: true,
+                  file: null,
+                  photoUrl: currentUser?.photoUrl,
+                },
+              })
+            }
+          >
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Profile
+          </MenuItem>
+        )}
+
         <MenuItem
           onClick={() => dispatch({ type: "UPDATE_USER", payload: null })}
         >

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Close, Send } from "@mui/icons-material";
 import { useValue } from "../../context/ContextProvider";
+import { updateProfile } from "../../actions/user";
 
 const Profile = () => {
   const {
@@ -19,8 +20,8 @@ const Profile = () => {
     dispatch,
   } = useValue();
 
-  console.log("state profile from profile.js",profile)
-  console.log("state current user from profile.js",currentUser)
+  console.log("state profile from profile.js", profile);
+  console.log("state current user from profile.js", currentUser);
 
   const handleClose = () => {
     console.log("handling close");
@@ -29,7 +30,9 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hss")
+    const name = nameRef.current.value;
+    //pass user name and photo file to new fxn in user actions
+    updateProfile(currentUser, { name, file: profile.file }, dispatch);
   };
   const handleChange = (e) => {
     console.log("handling change");
@@ -42,7 +45,7 @@ const Profile = () => {
         payload: { ...profile, file, photoUrl },
       });
     } else {
-      console.log("executed else block")
+      console.log("executed else block");
     }
   };
   const nameRef = useRef();

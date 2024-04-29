@@ -35,7 +35,6 @@ const Login = () => {
     const password = passwordRef.current.value;
     //send login rqst if it is not register and return
     if (!isRegister) {
-      console.log("dasdfirst")
       return login({ email, password }, dispatch);
     }
     const name = nameRef.current.value;
