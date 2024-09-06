@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import roomRouter from "./routes/roomRouter.js";
 import mongoose from "mongoose";
 import userRouter from "./routes/userRouter.js";
+import busRouter from "./routes/BusRouter.js";
 // import bodyParser from "express";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.json({ limit: "10mb" }));
 // app.use(bodyParser.urlencoded({ extended:false }));
 app.use("/user", userRouter);
 app.use("/room", roomRouter);
+app.use("/bus", busRouter);
 app.get("/", (req, res) => {
   res.json({ message: "wlcm to our API" });
 });
